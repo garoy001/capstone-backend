@@ -17,7 +17,7 @@ const { PORT, DB_STRING } = process.env;
 // Routes
 //-----------------------////////
 const inventoryPage = require('./App/routers/inventory');
-
+const usercart = require('./App/routers/usercart');
 //-----------------------////////
 // Middleware
 //-----------------------////////
@@ -29,8 +29,8 @@ app.use(express.urlencoded({ extended: false }));
 //-----------------------////////
 // Route Handlers
 //-----------------------////////
-app.use('/', inventoryPage);
-
+app.use('/inv', inventoryPage);
+app.use('/cart', usercart);
 app.listen(PORT, () => {
 	console.log(`listening on ${PORT}`);
 });
