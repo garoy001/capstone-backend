@@ -56,13 +56,21 @@ router.put('/:id', async (req, res, next) => {
 		console.log('id =  ' + req.params.id);
 		console.log(req.body);
 		try {
-			console.log('getting item');
+			console.log('getting user');
 			let dbReturn = await User.find({ _id: req.params.id });
 			console.log('user found');
 			dbReturn = dbReturn[0];
 			console.log('saving user\n' + dbReturn);
-			dbReturn.name = req.body.name;
-			dbReturn.cart = req.body.cart;
+
+			if (req.body.operation == 'add') {
+				dbReturn.cart = [...dbReturn.cart, req.body.updatedCart];
+			} else if (req.body.operation == 'remove') {
+				cartOp = dbReturn.cart;
+				returnCart = cartOp.filter((obj) => {
+					obj.name !== req.body.updatedCart.name;
+				});
+				dbReturn.cart = returnCart;
+			}
 
 			console.log('updated user\n' + dbReturn);
 			const dbSave = await dbReturn.save();
