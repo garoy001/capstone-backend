@@ -61,9 +61,10 @@ router.put('/:id', async (req, res, next) => {
 			console.log('item found');
 			dbReturn = dbReturn[0];
 			console.log('saving item\n' + dbReturn);
-			dbReturn.event = req.body.event;
-			dbReturn.location = req.body.location;
-			dbReturn.date = req.body.date;
+			dbReturn.name = req.body.name;
+			console.log(req.body.name + '<<<<<<<<<');
+			dbReturn.price = req.body.price;
+			console.log(req.body.price + '<<<<<<<<<<<');
 			console.log('updated item\n' + dbReturn);
 			const dbSave = await dbReturn.save();
 			res.json(dbSave);
